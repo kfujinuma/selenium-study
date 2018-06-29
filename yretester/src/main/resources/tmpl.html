@@ -1,0 +1,31 @@
+<html><head></head>
+<body>
+<h1>設定</h1>
+<p>結果出力フォルダ:$!{settings.outputDir}</p>
+<p>ブラウザ種類:$!{settings.browserKind}</p>
+<p>WebDriverパス:$!{settings.driverPath}</p>
+<h1>結果</h1>
+ #foreach( $result in $results)
+	<h2>条件ID：$!{result.condition.id}</h2>
+	<h3>検索条件</h3>
+	<p>物件名、路線名、駅名など:$!{result.condition.keyword}</p>
+	<p>カテゴリー:$!{result.condition.category}</p>
+	<p>地域:$!{result.condition.area}</p>
+	<p>順序:$!{result.condition.order}</p>
+	<h3>検索結果 <a href="${result.uri}">$!{result.count}件</a>
+	<a href="${result.capturePath}" target="cap">キャプチャ画像</a></h3>
+	<p>$!{result.errorStackTrace}</p>
+	 #foreach($cand in $result.candidates)
+		#if(${cand.uri})
+			<h4><a href="${cand.uri}">${cand.title}</a></h4>
+  		#else
+			<h4>${cand.title}</h4>
+  		#end
+		#if(${cand.capturePath})
+			<p><a href="${cand.capturePath}">キャプチャ画像</a></p>
+  		#end
+	 #end
+ #end
+</body>
+</html>
+
